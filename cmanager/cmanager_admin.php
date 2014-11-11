@@ -26,17 +26,18 @@
  */
 require_once("../../config.php");
 global $CFG, $DB;
+require_login();
+
+
 $formPath = "$CFG->libdir/formslib.php";
 require_once($formPath);
-require_login();
-require_once('validate_admin.php');
 require_once('../../course/lib.php');
 require_once('lib/displayLists.php');
+
 
 /** Navigation Bar **/
 $PAGE->navbar->ignore_active();
 $PAGE->navbar->add(get_string('cmanagerDisplay', 'block_cmanager'), new moodle_url('/blocks/cmanager/cmanager_admin.php'));
-
 $PAGE->set_url('/blocks/cmanager/cmanager_admin.php');
 $PAGE->set_context(context_system::instance());
 $PAGE->set_heading(get_string('pluginname', 'block_cmanager'));
@@ -44,16 +45,11 @@ $PAGE->set_title(get_string('pluginname', 'block_cmanager'));
 echo $OUTPUT->header();
 
 
-$_SESSION['CRMisAdmin'] = true;
-
-
 $context = context_system::instance();
-if (has_capability('block/cmanager:viewconfig',$context)) {
+if (has_capability('block/cmanager:approverecord',$context)) {
 } else {
   print_error(get_string('cannotviewconfig', 'block_cmanager'));
 }
-
-
 
 ?>
 
@@ -324,9 +320,6 @@ if ($mform->is_cancelled()) {
 
 
 }
-
-
-
 
 
 $mform->focus();

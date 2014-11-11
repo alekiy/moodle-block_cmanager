@@ -26,7 +26,6 @@
  */
 
 require_once("../../../config.php");
-
 global $CFG, $DB;
 
 /**
@@ -122,6 +121,7 @@ function block_cmanager_create_new_course_by_record_id($mid, $sendMail) {
     $rec =  $DB->get_record('block_cmanager_records', array('id'=>$mid));
 
     // Build up a course record based on the request.
+
     if(empty($rec->cate)){
 		$new_course->category 		= $CFG->defaultrequestcategory;
 	} else {
@@ -135,6 +135,7 @@ function block_cmanager_create_new_course_by_record_id($mid, $sendMail) {
 	}else{
 		$newShortName = $rec->modcode;
 	}
+
 	$new_course->shortname 			= $newShortName;
 
 	$p_key = $rec->modkey;
@@ -225,6 +226,7 @@ function block_cmanager_create_new_course_by_record_id($mid, $sendMail) {
         $enrollmentRecord->customint3 = 0;
         $enrollmentRecord->customint4 = 1;
 
+		
         if ($CFG->version >= 2013051400) {
         	$enrollmentRecord->customint5 = NULL;
         	$enrollmentRecord->customint6 = 1;
